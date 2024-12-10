@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=AnimateObj
+comment1.params=xPos
+comment1.target=void\ setDXPos(double)
+comment2.params=
+comment2.target=double\ getDXPos()
+comment3.params=yPos
+comment3.target=void\ setDYPos(double)
+comment4.params=
+comment4.target=double\ getDYPos()
+comment5.params=
+comment5.target=void\ act()
+numComments=6

@@ -1,7 +1,7 @@
 import greenfoot.*;
 import java.util.*;
 
-public class Cloud extends CollisionObj implements IKeysMovement
+public class Cloud extends AnimateCollisionObj implements IKeysMovement
 {
     protected double speed = 2;
     

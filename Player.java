@@ -114,25 +114,35 @@ public class Player extends GravityAffected implements IKeysMovement
      * @return strana kolizního objektu, kde nastane kolize
      */
     protected Optional<Direction> findDominantIntersection(CollisionObj colObj) {
-        double frameX;
-        double frameY;
-        
         double xDir = getXPosDiff();      
         double yDir = getYPosDiff();
+        
+        if (yDir == 0) {
+            if (xDir < 0)
+                return Optional.of(Direction.right);
+            else if (xDir > 0)
+                return Optional.of(Direction.left);
+        }
+        else if (xDir == 0) {
+            if (yDir < 0) 
+                return Optional.of(Direction.down);       
+            else if (yDir > 0) 
+                return Optional.of(Direction.up);
+        }
+        
+        double frameX = 0;
+        double frameY = 0;
         
         if (xDir < 0)
             frameX = this.getLeftFrame();
         else if (xDir > 0) 
             frameX = this.getRightFrame();
-        else 
-            return Optional.empty();
+
             
         if (yDir < 0)
             frameY = this.getTopFrame();
         else if (yDir > 0)
             frameY = this.getBottomFrame();
-        else 
-            return Optional.empty();
         
         double topXIntersection = getVectorHorXIntersection(colObj.getTop(), frameX, frameY);
         double bottomXIntersection = getVectorHorXIntersection(colObj.getBottom(), frameX, frameY);
@@ -282,23 +292,8 @@ public class Player extends GravityAffected implements IKeysMovement
             if (xDir != 0 && this.getIsStanding() && !stanceFound)
                 this.startFalling();
             
-            if (colObj.isIntersectingObj(this)) {
-                if (yDir == 0) {
-                    if (xDir < 0)
-                        landingDirection = Optional.of(Direction.right);
-                    else if (xDir > 0)
-                        landingDirection = Optional.of(Direction.left);
-                }
-                else if (xDir == 0) {
-                    if (yDir < 0) 
-                        landingDirection = Optional.of(Direction.down);       
-                    else if (yDir > 0) 
-                        landingDirection = Optional.of(Direction.up);
-                }
-                else if (xDir != 0 && yDir != 0) {
-                    landingDirection = findDominantIntersection(colObj);
-                }
-            }
+            if (colObj.isIntersectingObj(this))
+                landingDirection = findDominantIntersection(colObj);
             
             str += "Land: ";
             
