@@ -1,6 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-public abstract class GravityAffected extends PrecisePosObj
+public abstract class GravityAffected extends AnimateObj
 {
     private boolean _isStanding = false;
     private double _gravity = 0;

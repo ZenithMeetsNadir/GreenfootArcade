@@ -4,6 +4,4 @@ comment1.params=
 comment1.target=AnimateCollisionObj()
 comment2.params=xPos\ yPos
 comment2.target=AnimateCollisionObj(double,\ double)
-comment3.params=
-comment3.target=void\ act()
-numComments=4
+numComments=3
