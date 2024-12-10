@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Cloud
+comment1.params=
+comment1.target=Cloud()
+comment2.params=xPos\ yPos
+comment2.target=Cloud(double,\ double)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=upDownLeftRightKeys
+comment4.target=void\ setMovKeys(java.lang.String[])
+comment5.params=
+comment5.target=java.lang.String[]\ getMovKeys()
+comment6.params=dir
+comment6.target=void\ move(java.util.ArrayList)
+numComments=7

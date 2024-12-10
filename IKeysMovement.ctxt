@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=IKeysMovement
+comment1.params=upDownLeftRightKeys
+comment1.target=void\ setMovKeys(java.lang.String[])
+comment2.params=
+comment2.target=java.lang.String[]\ getMovKeys()
+comment3.params=
+comment3.target=void\ checkMovKeyDown()
+comment4.params=dir
+comment4.target=void\ move(java.util.ArrayList)
+numComments=5

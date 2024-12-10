@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=GravityAffected
+comment1.params=
+comment1.target=GravityAffected()
+comment2.params=xPos\ yPos
+comment2.target=GravityAffected(double,\ double)
+comment3.params=
+comment3.target=boolean\ getIsStanding()
+comment4.params=value
+comment4.target=void\ setIsStanding(boolean)
+comment5.params=
+comment5.target=double\ getGravity()
+comment6.params=value
+comment6.target=void\ setGravity(double)
+comment7.params=
+comment7.target=void\ startFalling()
+comment8.params=
+comment8.target=void\ computeGravity()
+comment9.params=
+comment9.target=void\ act()
+numComments=10

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Canvas
+comment1.params=
+comment1.target=Canvas()
+comment2.params=object
+comment2.target=void\ place(PrecisePosObj)
+comment3.params=
+comment3.target=java.util.ArrayList\ getRegisteredColObjs()
+comment4.params=obj
+comment4.target=void\ registerColObj(CollisionObj)
+comment5.params=obj
+comment5.target=void\ removeColObj(CollisionObj)
+numComments=6
