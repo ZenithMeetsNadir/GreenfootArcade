@@ -80,11 +80,17 @@ public class Player extends GravityAffected implements IKeysMovement
         refreshReqPos();
     }
     
-    protected double getXPosDiff() { // positive for right
+    /**
+     * @return positive number for right
+     */
+    protected double getXPosDiff() {
         return this.getDXPos() - getDXPosFrame();
     }
     
-    protected double getYPosDiff() { // positive for down
+    /**
+     * @return positive number for down
+     */
+    protected double getYPosDiff() {
         return this.getDYPos() - getDYPosFrame();
     }
     
@@ -101,19 +107,32 @@ public class Player extends GravityAffected implements IKeysMovement
         return getYPosDiff() / getXPosDiff()
         * (vertXPos - frameX) + frameY;
     }
-        
+       
+    /**
+     * PROSIMTĚ UŽ NA TO NEŠAHEJ TY DEBILE!!!
+     * @param colObj kolizní objekt
+     * @return strana kolizního objektu, kde nastane kolize
+     */
     protected Optional<Direction> findDominantIntersection(CollisionObj colObj) {
-        double frameX = this.getDXPosFrame();
-        double frameY = this.getDYPosFrame();
+        double frameX;
+        double frameY;
         
         double xDir = getXPosDiff();      
         double yDir = getYPosDiff();
         
-        if (xDir > 0) 
+        if (xDir < 0)
+            frameX = this.getLeftFrame();
+        else if (xDir > 0) 
             frameX = this.getRightFrame();
+        else 
+            return Optional.empty();
             
         if (yDir < 0)
             frameY = this.getTopFrame();
+        else if (yDir > 0)
+            frameY = this.getBottomFrame();
+        else 
+            return Optional.empty();
         
         double topXIntersection = getVectorHorXIntersection(colObj.getTop(), frameX, frameY);
         double bottomXIntersection = getVectorHorXIntersection(colObj.getBottom(), frameX, frameY);
@@ -121,7 +140,8 @@ public class Player extends GravityAffected implements IKeysMovement
         double leftYIntersection = getVectorVertYIntersection(colObj.getLeft(), frameX, frameY);
         double rightYIntersection = getVectorVertYIntersection(colObj.getRight(), frameX, frameY);
         
-        double xTolerance = xDir / Math.abs(xDir) * this.getImage().getWidth();
+        double xTolerance = xDir / Math.abs(xDir) * getWidth();
+        double yTolerance = yDir / Math.abs(yDir) * getHeight();
         
         if (colObj.isIntersectingObjX(getLeftFrame(), getRightFrame())) {
             if (yDir > 0 
@@ -143,12 +163,12 @@ public class Player extends GravityAffected implements IKeysMovement
                 }
                 else if (xDir > 0
                 && (colObj.isIntersectingY(leftYIntersection)
-                || colObj.isIntersectingY(leftYIntersection - this.getImage().getHeight()))) {
+                || colObj.isIntersectingY(leftYIntersection - getHeight()))) {
                     return Optional.of(Direction.left);
                 }
                 else if (xDir < 0
                 && (colObj.isIntersectingY(rightYIntersection)
-                || colObj.isIntersectingY(rightYIntersection - this.getImage().getHeight()))) {
+                || colObj.isIntersectingY(rightYIntersection - getHeight()))) {
                     return Optional.of(Direction.right);    
                 }
             }
@@ -159,12 +179,12 @@ public class Player extends GravityAffected implements IKeysMovement
                 }
                 else if (xDir > 0
                 && (colObj.isIntersectingY(leftYIntersection)
-                || colObj.isIntersectingY(leftYIntersection + this.getImage().getHeight()))) {
+                || colObj.isIntersectingY(leftYIntersection + getHeight()))) {
                     return Optional.of(Direction.left);
                 }
                 else if (xDir < 0 
                 && (colObj.isIntersectingY(rightYIntersection)
-                || colObj.isIntersectingY(rightYIntersection + this.getImage().getHeight()))) {
+                || colObj.isIntersectingY(rightYIntersection + getHeight()))) {
                     return Optional.of(Direction.right);
                 }
             }
@@ -173,12 +193,12 @@ public class Player extends GravityAffected implements IKeysMovement
         if (colObj.isIntersectingObjY(getTopFrame(), getBottomFrame())) {
             if (xDir > 0 
             && (colObj.isIntersectingY(leftYIntersection)
-            || colObj.isIntersectingY(leftYIntersection - yDir / Math.abs(yDir) * this.getImage().getHeight()))) {
+            || colObj.isIntersectingY(leftYIntersection - yTolerance))) {
                 return Optional.of(Direction.left);
             }
             else if (xDir < 0 
             && (colObj.isIntersectingY(rightYIntersection)
-            || colObj.isIntersectingY(rightYIntersection - yDir / Math.abs(yDir) * this.getImage().getHeight()))) {
+            || colObj.isIntersectingY(rightYIntersection - yTolerance))) {
                 return Optional.of(Direction.right);
             }
         }

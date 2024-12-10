@@ -3,21 +3,18 @@ import java.util.*;
 
 public class Canvas extends World
 {
-    protected ArrayList<CollisionObj> registeredColObjs = new ArrayList();
+    protected ArrayList<CollisionObj> registeredColObjs = new ArrayList<CollisionObj>();
         
     public Canvas()
     {    
         super(600, 400, 1); 
         
         Player player = new Player(100, 100);
-        player.isGravityAffected = false;
         Cloud cloud = new Cloud(200, 200);
-        //Cloud cloud2 = new Cloud(170, 230);
         
-        //cloud2.setMovKeys(new String[] { "up", "down", "left", "right" });
-        
-        player.activateDebugMode(Color.CYAN);
-        cloud.activateDebugMode(Color.MAGENTA);
+        //player.isGravityAffected = false;
+        //player.activateDebugMode(Color.CYAN);
+        //cloud.activateDebugMode(Color.MAGENTA);
         
         place(player);
         place(cloud);

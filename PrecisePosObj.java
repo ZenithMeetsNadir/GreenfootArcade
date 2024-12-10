@@ -1,4 +1,4 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
 public abstract class PrecisePosObj extends Actor
 {
@@ -34,38 +34,46 @@ public abstract class PrecisePosObj extends Actor
         setDXPos(xPos);
         setDYPos(yPos);
     }
+
+    protected double getWidth() {
+        return (double)this.getImage().getWidth();
+    }
+
+    protected double getHeight() {
+        return (double)this.getImage().getHeight();
+    }
     
     public double getTop() {
-        return getDYPos() - (double)this.getImage().getHeight() / 2;
+        return getDYPos() - getHeight() / 2;
     }
     public void setTop(double yPos) {
-        setDYPos(yPos + (double)this.getImage().getHeight() / 2);
+        setDYPos(yPos + getHeight() / 2);
     }
     
     public double getBottom() {
-        return getDYPos() + this.getImage().getHeight() / 2 - 1;
+        return getDYPos() + getHeight() / 2 - 1;
     }
     public void setBottom(double yPos) {
-        setDYPos(yPos - this.getImage().getHeight() / 2 + 1);
+        setDYPos(yPos - getHeight() / 2 + 1);
     }
     
     public double getLeft() {
-        return getDXPos() - (double)this.getImage().getWidth() / 2 + 1;
+        return getDXPos() - getWidth() / 2 + 1;
     }
     public void setLeft(double xPos) {
-        setDXPos(xPos + (double)this.getImage().getWidth() / 2 - 1);
+        setDXPos(xPos + getWidth() / 2 - 1);
     }
     
     public double getRight() {
-        return getDXPos() + (double)this.getImage().getWidth() / 2;
+        return getDXPos() + getWidth() / 2;
     }
     public void setRight(double xPos) {
-        setDXPos(xPos - (double)this.getImage().getWidth() / 2);
+        setDXPos(xPos - getWidth() / 2);
     }
     
     public void activateDebugMode(Color color) {
         this.getImage().setColor(color);
-        this.getImage().fillRect(-10, -10, this.getImage().getWidth() +10 , this.getImage().getHeight() + 10);
+        this.getImage().fillRect(0, 0, (int)getWidth(), (int)getHeight());
     }
     
     public int getGround() {
