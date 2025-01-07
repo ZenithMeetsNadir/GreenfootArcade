@@ -12,9 +12,12 @@ public class Canvas extends World
         
         Player player = new Player(50, 100);
         Cloud cloud = new Cloud(50, 200);
-        Brick brick = new Brick(200, 270);
+        Cloud cloud2 = new Cloud(50, 200);
+        Brick brick = new Brick(200, 200);
         Brick brick2 = new Brick(200, 0);
         brick2.setBottom(brick.getTop());
+        
+        cloud2.setMovKeys(new String[] {"up", "down", "left", "right"});
         
         //player.isGravityAffected = false;
         //player.activateDebugMode(Color.CYAN);
@@ -22,8 +25,9 @@ public class Canvas extends World
         
         place(player);
         place(cloud);
-        place(brick);
-        place(brick2);
+        place(cloud2);
+        /*place(brick);
+        place(brick2);*/
     }
 
     protected void place(PrecisePosObj object) {

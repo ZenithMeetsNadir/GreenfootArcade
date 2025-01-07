@@ -95,7 +95,6 @@ public abstract class AnimateObj extends PrecisePosObj implements IAnimateObj
     @Override
     public void processRPos() {
         setPosOmitCheck(this.getDXPos(), getDYPos());
-        this.refreshReqPos();
     }
     
     @Override

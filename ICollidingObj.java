@@ -117,9 +117,6 @@ public interface ICollidingObj extends IAnimateObj
                 return Optional.of(Direction.right);
             }
         }
-        else {
-            
-        }
         
         return Optional.empty();
     }

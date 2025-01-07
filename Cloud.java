@@ -39,14 +39,29 @@ public class Cloud extends AnimateObj implements IKeysMovement, IAnimateColBlock
                 double fallBackXPos = colObj.getDXPosFrame();
                 double fallBackYPos = colObj.getDYPosFrame();
                 
-                colObj.setPos(fallBackXPos + xDir, fallBackYPos + yDir);
-                colObj.processRPos();
-                                
-                colObj.setPos(fallBackXPos, fallBackYPos);
-                this.processRPos();
+                double pushXPos = fallBackXPos + xDir;
+                double pushYPos = fallBackYPos + yDir;
+                
+                boolean isPushing = colObj.isIntersectingObj(this);
+                
+                colObj.setPos(pushXPos, pushYPos);
                 colObj.processRPos();
                 
-                if (!colObj.standingOnTop(this)) {
+                if (isPushing) {
+                    double pushResultXDiff = colObj.getDXPos() - fallBackXPos;
+                    double pushResultYDiff = colObj.getDYPos() - fallBackYPos;
+                    
+                    this.setPos(this.getDXPosFrame() + pushResultXDiff, this.getDYPosFrame() + pushResultYDiff);
+                }
+                    
+                boolean previouslyStandingOnTop = colObj.standingOnTop(this);
+                
+                colObj.setPos(fallBackXPos, fallBackYPos);
+                colObj.processRPos();
+                
+                this.processRPos();
+                
+                if (previouslyStandingOnTop && !colObj.standingOnTop(this)) {
                     if (colObj instanceof GravityAffected) {
                         GravityAffected gColObj = (GravityAffected)colObj;
                         if (gColObj.getIsStanding())
