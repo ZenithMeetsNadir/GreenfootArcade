@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=AnimateCollisionObj
-comment1.params=
-comment1.target=AnimateCollisionObj()
-comment2.params=xPos\ yPos
-comment2.target=AnimateCollisionObj(double,\ double)
-numComments=3

@@ -15,10 +15,10 @@ public interface ICollidingObj extends IAnimateObj
     
     /**
      * PROSIMTĚ UŽ NA TO NEŠAHEJ TY DEBILE!!!
-     * @param colObj kolizní objekt
+     * @param colObj kolizní block
      * @return strana kolizního objektu, kde nastane kolize
      */
-    default Optional<Direction> findDominantIntersection(CollisionObj colObj) {
+    default Optional<Direction> findDominantIntersection(ICollisionBlock colObj) {
         double xDir = getXPosDiff();      
         double yDir = getYPosDiff();
         
@@ -124,23 +124,23 @@ public interface ICollidingObj extends IAnimateObj
         return Optional.empty();
     }
     
-    default void landOnTop(CollisionObj colObj) {
+    default void landOnTop(ICollisionBlock colObj) {
         this.setBottom(colObj.getTop() - 1);
     }
     
-    default void landOnBottom(CollisionObj colObj) {
+    default void landOnBottom(ICollisionBlock colObj) {
         this.setTop(colObj.getBottom() + 1);
     }
     
-    default void landOnLeft(CollisionObj colObj) {
+    default void landOnLeft(ICollisionBlock colObj) {
         this.setRight(colObj.getLeft() - 1);
     }
     
-    default void landOnRight(CollisionObj colObj) {
+    default void landOnRight(ICollisionBlock colObj) {
         this.setLeft(colObj.getRight() + 1);
     }
     
-    default void resolveLandingDirection(Optional<Direction> dir, CollisionObj colObj) {
+    default void resolveLandingDirection(Optional<Direction> dir, ICollisionBlock colObj) {
         try {
             switch (dir.get()) {
                 case up:

@@ -2,8 +2,8 @@ import greenfoot.*;
 
 public abstract class AnimateObj extends PrecisePosObj implements IAnimateObj
 {
-    private double requestedDXPos = 0;
-    private double requestedDYPos = 0;
+    private double requestedDXPos = 20;
+    private double requestedDYPos = 20;
     
     public AnimateObj() {
         super();
@@ -11,6 +11,7 @@ public abstract class AnimateObj extends PrecisePosObj implements IAnimateObj
     
     public AnimateObj(double xPos, double yPos) {
         super(xPos, yPos);
+        this.setPos(xPos, yPos);
     }
     
     @Override
@@ -89,5 +90,21 @@ public abstract class AnimateObj extends PrecisePosObj implements IAnimateObj
     public void setRightOmitCheck(double xPos) {
         super.setRight(xPos);
         refreshReqPos();
+    }
+    
+    @Override
+    public void processRPos() {
+        setPosOmitCheck(this.getDXPos(), getDYPos());
+        this.refreshReqPos();
+    }
+    
+    @Override
+    public void act() {
+        processRPos();
+    }
+    
+    @Override 
+    public String toString() {
+        return this.getDXPosFrame() + "; " + this.getDYPosFrame();
     }
 }

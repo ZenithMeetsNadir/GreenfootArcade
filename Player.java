@@ -6,7 +6,7 @@ public class Player extends GravityAffected implements IKeysMovement, IColliding
     private double requestedDXPos = 0;
     private double requestedDYPos = 0;
     
-    protected int jumpForce = 7;
+    protected int jumpForce = 8;
     protected boolean jumping = false;
     protected double speed = 2;
     
@@ -18,28 +18,24 @@ public class Player extends GravityAffected implements IKeysMovement, IColliding
     
     public Player(double xPos, double yPos) {
         super(xPos, yPos);
-        setPosOmitCheck(xPos, yPos);
-    }
-    
-    protected boolean standingOnTop(CollisionObj colObj) {
-        return colObj.isIntersectingObjX(getLeft(), getRight()) && colObj.getTop() == this.getBottom() + 1;
     }
     
     @Override
-    public void landOnTop(CollisionObj colObj) {
+    public void landOnTop(ICollisionBlock colObj) {
         this.setBottom(colObj.getTop() - 1);
         this.setIsStanding(true);
     }
     
     @Override
-    public void landOnBottom(CollisionObj colObj) {
+    public void landOnBottom(ICollisionBlock colObj) {
         this.setTop(colObj.getBottom() + 1);
         this.setGravity(0);
     }
     
     String debugLanding = "";
+    String debugCollision = "";
     
-    @Override
+    @Override    
     public void processRPos() {
         Canvas canvas = this.getWorldOfType(Canvas.class);
         if (canvas == null) {
@@ -47,14 +43,14 @@ public class Player extends GravityAffected implements IKeysMovement, IColliding
             return;
         }
 
-        ArrayList<CollisionObj> colObjs = canvas.getRegisteredColObjs();
+        ArrayList<ICollisionBlock> colBlocks = canvas.getRegisteredColBlocks();
         
         boolean isStanding = false;
         String str = "";
         
         boolean stanceFound = this.isTouchingGround();
-        for (CollisionObj colObj : colObjs) {
-            if (this.standingOnTop(colObj))
+        for (ICollisionBlock colBlock : colBlocks) {
+            if (this.standingOnTop(colBlock))
                 stanceFound = true;
         }
         
@@ -63,51 +59,51 @@ public class Player extends GravityAffected implements IKeysMovement, IColliding
         str += "stance found: " + stanceFound + "\n";
         //enddebug
         
-        Optional<Direction> landingDirection = Optional.empty();
+        Optional<Direction> landingDirection;
         
-        for (CollisionObj colObj : colObjs) {       
-            double xDir = getXPosDiff(); 
-            double yDir = getYPosDiff(); 
+        for (ICollisionBlock colBlock : colBlocks) { 
+            landingDirection = Optional.empty();
+            
+            double xDir = getXPosDiff();
+            double yDir = getYPosDiff();
             
             if (xDir != 0 && this.getIsStanding() && !stanceFound)
                 this.startFalling();
             
-            if (colObj.isIntersectingObj(this))
-                landingDirection = findDominantIntersection(colObj);
-            
-            str += "Land: ";
-            
+            if (colBlock.isIntersectingObj(this))
+                landingDirection = findDominantIntersection(colBlock);    
+                
             try {
                 if (landingDirection.get() == Direction.up)
                     stanceFound = true;
                     
                 this.debugLanding = landingDirection.get().toString();
+                this.debugCollision = "" + colBlock.toString();
             } catch (NoSuchElementException e) { }
             
-            str += debugLanding + "\n";
-            
-            resolveLandingDirection(landingDirection, colObj);
+            resolveLandingDirection(landingDirection, colBlock);
         }
+        
+        str += "land: " + debugLanding + "\n";
         
         if (this.isBelowGround()) {
             this.setBottom(this.getGround());
             setIsStanding(true);
         }
         
-        setPosOmitCheck(this.getDXPos(), this.getDYPos());
-        
         canvas.showText(str, 100, 50);
+        
+        super.processRPos();
     }
     
     @Override
     public void act() {
-        super.act();
-        
         if (this.getIsStanding())
             jumping = false;
         
         checkMovKeyDown();
-        processRPos();
+        
+        super.act();
     }
     
     @Override
@@ -119,7 +115,7 @@ public class Player extends GravityAffected implements IKeysMovement, IColliding
     public void move(ArrayList<Direction> dir) {
         if (dir.contains(Direction.up)) {
             if (isGravityAffected) {
-                if (!jumping) {
+                if (!jumping && this.getGravity() == 0) {
                     jumping = true;
                     this.setGravity(this.getGravity() - jumpForce);
                 }  

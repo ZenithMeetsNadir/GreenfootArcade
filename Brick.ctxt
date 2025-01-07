@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Brick
+comment1.params=
+comment1.target=Brick()
+comment2.params=xPos\ yPos
+comment2.target=Brick(double,\ double)
+numComments=3

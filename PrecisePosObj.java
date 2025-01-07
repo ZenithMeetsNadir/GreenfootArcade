@@ -10,8 +10,13 @@ public abstract class PrecisePosObj extends Actor implements IPrecisePosObj
     }
     
     public PrecisePosObj(double xPos, double yPos) {
-        setDXPos(xPos);
-        setDYPos(yPos);
+        setLeft(xPos);
+        setTop(yPos);
+    }
+    
+    public void activateDebugMode(Color color) {
+        this.getImage().setColor(color);
+        this.getImage().fillRect(0, 0, (int)this.getWidth(), (int)this.getHeight());
     }
     
     public double getDXPos() {
@@ -40,5 +45,10 @@ public abstract class PrecisePosObj extends Actor implements IPrecisePosObj
     
     public int getGround() {
         return this.getWorld().getHeight();
+    }
+    
+    @Override
+    public String toString() {
+        return this.getDXPos() + "; " + this.getDYPos();
     }
 }

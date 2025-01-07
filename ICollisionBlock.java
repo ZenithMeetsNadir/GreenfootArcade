@@ -1,6 +1,6 @@
 import greenfoot.*;
 
-public interface ICollisionBlock
+public interface ICollisionBlock extends IPrecisePosObj
 {
     
 }

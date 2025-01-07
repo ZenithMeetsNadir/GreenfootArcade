@@ -76,4 +76,8 @@ public interface IPrecisePosObj
         return isIntersectingObjX(obj.getLeft(), obj.getRight())
         && isIntersectingObjY(obj.getTop(), obj.getBottom());
     }
+    
+    default boolean standingOnTop(IPrecisePosObj obj) {
+        return obj.isIntersectingObjX(getLeft(), getRight()) && obj.getTop() == getBottom() + 1;
+    }
 }

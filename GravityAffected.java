@@ -5,7 +5,7 @@ public abstract class GravityAffected extends AnimateObj
     private boolean _isStanding = false;
     private double _gravity = 0;
     
-    protected int gravityCap = 20;
+    protected int gravityCap = 30;
     protected double g = 10;
     
     public boolean isGravityAffected = true;
@@ -59,5 +59,7 @@ public abstract class GravityAffected extends AnimateObj
                 this.setDYPos(this.getDYPos() + getGravity());
             }
         }
+        
+        super.act();
     }
 }
